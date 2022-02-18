@@ -1,40 +1,61 @@
-var ones = ['', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine'];
-var tens = ['', '', 'twenty', 'thirty', 'forty', 'fifty', 'sixty', 'seventy', 'eighty', 'ninety'];
-var teens = ['ten', 'eleven', 'twelve', 'thirteen', 'fourteen', 'fifteen', 'sixteen', 'seventeen', 'eighteen', 'nineteen'];
-
 module.exports = function toReadable (number) {
-    if (number == 0) return "zero";
-    else return toReadable_millions(number);
-}
+  number = String(number);
+  let rezult = '';
+  let array = [];
+  array = Array.from(number).reverse();
+  
+  if (number === '0') return 'zero';
 
-function toReadable_millions(number) {
-  if (number >= 1000000) {
-    return toReadable_millions(Math.floor(number/ 1000000)) + " million " + toReadable_thousands(number % 1000000);
-  } else {
-    return toReadable_thousands(number);
+  switch (array[2]) {
+          case '1': rezult = `one hundred `;       break;
+          case '2': rezult = `two hundred `;       break;
+          case '3': rezult = `three hundred `;     break;
+          case '4': rezult = `four hundred `;      break;
+          case '5': rezult = `five hundred `;      break;
+          case '6': rezult = `six hundred `;       break;
+          case '7': rezult = `seven hundred `;     break;
+          case '8': rezult = `eight hundred `;     break;
+          case '9': rezult = `nine hundred `;      break;
+  default: break;
   }
-}
 
-function toReadable_thousands(number) {
-  if (number>= 1000) {
-    return toReadable_hundreds(Math.floor(number / 1000)) + " thousand " + toReadable_hundreds(number % 1000);
-  } else {
-    return toReadable_hundreds(number);
+  switch (array[1]) {
+      case '1' :
+        switch (array[0]) {
+          case '0': rezult = `${rezult}ten`;      return rezult;
+          case '1': rezult = `${rezult}eleven`;   return rezult;
+          case '2': rezult = `${rezult}twelve`;   return rezult;
+          case '3': rezult = `${rezult}thirteen`; return rezult;
+          case '4': rezult = `${rezult}fourteen`; return rezult;
+          case '5': rezult = `${rezult}fifteen`;  return rezult;
+          case '6': rezult = `${rezult}sixteen`;  return rezult;
+          case '7': rezult = `${rezult}seventeen`;return rezult;
+          case '8': rezult = `${rezult}eighteen`; return rezult;
+          case '9': rezult = `${rezult}nineteen`; return rezult;
+        }
+      case '2': rezult = `${rezult}twenty `;        break;
+      case '3': rezult = `${rezult}thirty `;        break;
+      case '4': rezult = `${rezult}forty `;         break;
+      case '5': rezult = `${rezult}fifty `;         break;
+      case '6': rezult = `${rezult}sixty `;         break;
+      case '7': rezult = `${rezult}seventy `;       break;
+      case '8': rezult = `${rezult}eighty `;        break;
+      case '9': rezult = `${rezult}ninety `;        break;
+  default: break;
   }
-}
 
-function toReadable_hundreds(number) {
-  if (number> 99) {
-    return ones[Math.floor(number / 100)] + " hundred " + toReadable_tens(number % 100);
-  } else {
-    return toReadable_tens(number);
+  switch (array[0]) {
+          case '1': rezult = `${rezult}one`;       break;
+          case '2': rezult = `${rezult}two`;       break;
+          case '3': rezult = `${rezult}three`;     break;
+          case '4': rezult = `${rezult}four`;      break;
+          case '5': rezult = `${rezult}five`;      break;
+          case '6': rezult = `${rezult}six`;       break;
+          case '7': rezult = `${rezult}seven`;     break;
+          case '8': rezult = `${rezult}eight`;     break;
+          case '9': rezult = `${rezult}nine`;      break;
+  default: break;
   }
-}
 
-function toReadable_tens(number) {
-  if (number < 10) return ones[number];
-  else if (number >= 10 && number < 20) return teens[number - 10];
-  else {
-    return tens[Math.floor(number / 10)] + " " + ones[number % 10];
-  }
+return (rezult.trimEnd())
 }
